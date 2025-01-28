@@ -25,12 +25,6 @@
     <FxCompile Include="RayGenerationShaderLib.hlsl" />
     <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
     <FxCompile Include="RayGenerationShadowsLib.hlsl" />
-    <FxCompile Include="hitShaderLib.hlsl" />
-    <FxCompile Include="missShaderLib.hlsl" />
-    <FxCompile Include="missShadowsLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="RayGenerationShadowsLib.hlsl" />
     <FxCompile Include="*Lib.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
@@ -217,21 +211,62 @@
     <FxCompile Include="*Lib.hlsl" />
     <FxCompile Include="*Lib.hlsl" />
     <FxCompile Include="*Lib.hlsl" />
-    <FxCompile Include="Source\DiffuseHitShaderLib.hlsl" />
-    <FxCompile Include="Source\hitShaderLib.hlsl" />
-    <FxCompile Include="Source\missShaderLib.hlsl" />
-    <FxCompile Include="Source\missShadowsLib.hlsl" />
-    <FxCompile Include="Source\RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="Source\RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="Source\RayGenerationShadowsLib.hlsl" />
+    <FxCompile Include="Source\DiffuseHitShaderLib.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\hitShaderLib.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\missShaderLib.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\missShadowsLib.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\RayGenerationShaderLib.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\RayGenerationShaderSSRLib.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Source\RayGenerationShadowsLib.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\ModelViewer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\DXSampleHelper.h" />
-    <ClInclude Include="Source\ModelViewerRayTracing.h" />
-    <ClInclude Include="Source\RayTracingHlslCompat.h" />
+    <ClInclude Include="Source\RayTracingHlslCompat.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DXSampleHelper.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ModelViewerRayTracing.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\DearImgui\imconfig.h">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\DearImgui\imgui.h">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\DearImgui\imgui_internal.h">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\DearImgui\imstb_rectpack.h">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\DearImgui\imstb_textedit.h">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\DearImgui\imstb_truetype.h">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\DearImgui\imgui_impl_dx12.h">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\DearImgui\imgui_impl_win32.h">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\Models\background.DDS">
@@ -402,11 +437,21 @@
     <Image Include="Textures\Models\white.DDS">
       <Filter>Resources</Filter>
     </Image>
-    <Image Include="Resources\Logo.png" />
-    <Image Include="Resources\SmallLogo.png" />
-    <Image Include="Resources\SplashScreen.png" />
-    <Image Include="Resources\StoreLogo.png" />
-    <Image Include="Resources\WideLogo.png" />
+    <Image Include="Resources\Logo.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SmallLogo.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SplashScreen.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\StoreLogo.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\WideLogo.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />
@@ -422,5 +467,40 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{8be3895e-9f38-4b8d-bf48-b94d69970e47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{1d5be47d-35b8-4838-87fc-73d9bfddfc82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{d70ff45b-35f7-48c4-b5d2-c36f935d7e9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\IMGUI">
+      <UniqueIdentifier>{05658dd5-2655-42b3-8011-123c483781ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\ModelViewer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\DearImgui\imgui.cpp">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\DearImgui\imgui_demo.cpp">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\DearImgui\imgui_draw.cpp">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\DearImgui\imgui_tables.cpp">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\DearImgui\imgui_widgets.cpp">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\DearImgui\imgui_impl_dx12.cpp">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\DearImgui\imgui_impl_win32.cpp">
+      <Filter>Libraries\IMGUI</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

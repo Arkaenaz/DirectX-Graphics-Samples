@@ -65,7 +65,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\;..\MiniEngine\Core;..\MiniEngine\Model;$(ProjectDir)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\;..\MiniEngine\Core;..\MiniEngine\Model;$(ProjectDir)\Source;..\Libraries\DearImgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link Condition="'$(Configuration)'=='Debug'">
       <AdditionalOptions>/nodefaultlib:MSVCRT %(AdditionalOptions)</AdditionalOptions>
@@ -78,6 +78,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Libraries\DearImgui\imgui.cpp" />
+    <ClCompile Include="..\Libraries\DearImgui\imgui_demo.cpp" />
+    <ClCompile Include="..\Libraries\DearImgui\imgui_draw.cpp" />
+    <ClCompile Include="..\Libraries\DearImgui\imgui_impl_dx12.cpp" />
+    <ClCompile Include="..\Libraries\DearImgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\Libraries\DearImgui\imgui_tables.cpp" />
+    <ClCompile Include="..\Libraries\DearImgui\imgui_widgets.cpp" />
     <ClCompile Include="Source\ModelViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +216,14 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Libraries\DearImgui\imconfig.h" />
+    <ClInclude Include="..\Libraries\DearImgui\imgui.h" />
+    <ClInclude Include="..\Libraries\DearImgui\imgui_impl_dx12.h" />
+    <ClInclude Include="..\Libraries\DearImgui\imgui_impl_win32.h" />
+    <ClInclude Include="..\Libraries\DearImgui\imgui_internal.h" />
+    <ClInclude Include="..\Libraries\DearImgui\imstb_rectpack.h" />
+    <ClInclude Include="..\Libraries\DearImgui\imstb_textedit.h" />
+    <ClInclude Include="..\Libraries\DearImgui\imstb_truetype.h" />
     <ClInclude Include="Source\DXSampleHelper.h" />
     <ClInclude Include="Source\ModelViewerRayTracing.h" />
     <ClInclude Include="Source\RayTracingHlslCompat.h" />

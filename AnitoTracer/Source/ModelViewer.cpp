@@ -37,6 +37,9 @@
 #include "SponzaRenderer.h"
 #include "ModelH3D.h"
 #include "Renderer.h"
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx12.h"
 
 #include "DXSampleHelper.h"
 
@@ -167,11 +170,16 @@ struct MaterialRootConstant
 RaytracingDispatchRayInputs g_RaytracingInputs[RaytracingTypes::NumTypes];
 D3D12_CPU_DESCRIPTOR_HANDLE g_bvh_attributeSrvs[34];
 
-class D3D12RaytracingMiniEngineSample : public GameCore::IGameApp
+namespace GameCore
+{
+    extern HWND g_hWnd;
+}
+
+class AnitoTracer : public GameCore::IGameApp
 {
 public:
 
-    D3D12RaytracingMiniEngineSample( void ) {}
+    AnitoTracer( void ) {}
 
     virtual void Startup( void ) override;
     virtual void Cleanup( void ) override;
@@ -184,6 +192,8 @@ public:
     virtual bool RequiresRaytracingSupport() const override { return true; }
 
     void SetCameraToPredefinedPosition(int cameraPosition);
+
+    void InitializeGUI();
 
 private:
 
@@ -251,7 +261,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
     //TargetResolution = k720p;
     //g_DisplayWidth = 1280;
     //g_DisplayHeight = 720;
-    GameCore::RunApplication(D3D12RaytracingMiniEngineSample(), L"D3D12RaytracingMiniEngineSample", hInstance, nCmdShow); 
+    GameCore::RunApplication(AnitoTracer(), L"AnitoTracer", hInstance, nCmdShow); 
     return 0;
 }
 
@@ -689,7 +699,7 @@ void InitializeRaytracingStateObjects(const ModelH3D &model, UINT numMeshes)
    }
 }
 
-void D3D12RaytracingMiniEngineSample::Startup( void )
+void AnitoTracer::Startup( void )
 {
     MotionBlur::Enable = false;//true;
     TemporalEffects::EnableTAA = false;//true;
@@ -701,6 +711,7 @@ void D3D12RaytracingMiniEngineSample::Startup( void )
     Renderer::Initialize();
 
     Sponza::Startup(m_Camera);
+    InitializeGUI();
 
     m_Camera.SetZRange( 1.0f, 10000.0f );
     m_CameraController.reset(new FlyingFPSCamera(m_Camera, Vector3(kYUnitVector)));
@@ -904,10 +915,37 @@ void D3D12RaytracingMiniEngineSample::Startup( void )
     m_CameraPosArray[4].pitch = 0.0f;
 }
 
-void D3D12RaytracingMiniEngineSample::Cleanup( void )
+void AnitoTracer::InitializeGUI() {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+
+    // ImGUI needs a descriptor handle for it's fonts
+    DescriptorHandle guiFontHeap = Renderer::s_TextureHeap.Alloc(1);
+
+    ImGui_ImplWin32_Init(GameCore::g_hWnd);
+    ImGui_ImplDX12_Init(
+        Graphics::g_Device,
+        // Number of frames in flight.
+        3,
+        Graphics::g_OverlayBuffer.GetFormat(),
+        // imgui needs SRV descriptors for its font textures.
+        Renderer::s_TextureHeap.GetHeapPointer(),
+        D3D12_CPU_DESCRIPTOR_HANDLE(guiFontHeap),
+        D3D12_GPU_DESCRIPTOR_HANDLE(guiFontHeap)
+    );
+}
+
+void AnitoTracer::Cleanup( void )
 {
     Sponza::Cleanup();
     Renderer::Shutdown();
+
+    ImGui_ImplDX12_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
 }
 
 namespace Graphics
@@ -915,7 +953,7 @@ namespace Graphics
     extern EnumVar DebugZoom;
 }
 
-void D3D12RaytracingMiniEngineSample::Update( float deltaT )
+void AnitoTracer::Update( float deltaT )
 {
     ScopedTimer _prof(L"Update State");
 
@@ -939,6 +977,8 @@ void D3D12RaytracingMiniEngineSample::Update( float deltaT )
       rayTracingMode = RTM_REFLECTIONS;
     
     static bool freezeCamera = false;
+
+    ImGuiIO& io = ImGui::GetIO();
     
     if (GameInput::IsFirstPressed(GameInput::kKey_f))
     {
@@ -982,7 +1022,7 @@ void D3D12RaytracingMiniEngineSample::Update( float deltaT )
     m_MainScissor.bottom = (LONG)g_SceneColorBuffer.GetHeight();
 }
 
-void D3D12RaytracingMiniEngineSample::SetCameraToPredefinedPosition(int cameraPosition) 
+void AnitoTracer::SetCameraToPredefinedPosition(int cameraPosition) 
 {
     if (cameraPosition < 0 || cameraPosition >= c_NumCameraPositions)
         return;
@@ -993,7 +1033,7 @@ void D3D12RaytracingMiniEngineSample::SetCameraToPredefinedPosition(int cameraPo
         m_CameraPosArray[m_CameraPosArrayCurrentPosition].position);
 }
 
-void D3D12RaytracingMiniEngineSample::RenderScene(void)
+void AnitoTracer::RenderScene(void)
 {
     const bool skipDiffusePass = 
         rayTracingMode == RTM_DIFFUSE_WITH_SHADOWMAPS ||
@@ -1136,7 +1176,7 @@ void RaytracebarycentricsSSR(
     pRaytracingCommandList->DispatchRays(&dispatchRaysDesc);
 }
 
-void D3D12RaytracingMiniEngineSample::RaytraceShadows(
+void AnitoTracer::RaytraceShadows(
     GraphicsContext& context,
     const Math::Camera& camera,
     ColorBuffer& colorTarget,
@@ -1193,7 +1233,7 @@ void D3D12RaytracingMiniEngineSample::RaytraceShadows(
     pRaytracingCommandList->DispatchRays(&dispatchRaysDesc);
 }
 
-void D3D12RaytracingMiniEngineSample::RaytraceDiffuse(
+void AnitoTracer::RaytraceDiffuse(
     GraphicsContext& context,
     const Math::Camera& camera,
     ColorBuffer& colorTarget)
@@ -1247,7 +1287,7 @@ void D3D12RaytracingMiniEngineSample::RaytraceDiffuse(
     pRaytracingCommandList->DispatchRays(&dispatchRaysDesc);
 }
 
-void D3D12RaytracingMiniEngineSample::RaytraceReflections(
+void AnitoTracer::RaytraceReflections(
     GraphicsContext& context,
     const Math::Camera& camera,
     ColorBuffer& colorTarget,
@@ -1306,8 +1346,66 @@ void D3D12RaytracingMiniEngineSample::RaytraceReflections(
     pRaytracingCommandList->DispatchRays(&dispatchRaysDesc);
 }
 
-void D3D12RaytracingMiniEngineSample::RenderUI(class GraphicsContext& gfxContext)
+void AnitoTracer::RenderUI(class GraphicsContext& gfxContext)
 {
+    ImGui::Begin("SDFGI Settings");
+
+    /*Matrix4 viewMat = m_Camera.GetViewMatrix();
+    Float4 r0(viewMat.GetX().GetX(), viewMat.GetX().GetY(), viewMat.GetX().GetZ(), viewMat.GetX().GetW());
+    Float4 r1(viewMat.GetY().GetX(), viewMat.GetY().GetY(), viewMat.GetY().GetZ(), viewMat.GetY().GetW());
+    Float4 r2(viewMat.GetZ().GetX(), viewMat.GetZ().GetY(), viewMat.GetZ().GetZ(), viewMat.GetZ().GetW());
+    Float4 r3(viewMat.GetW().GetX(), viewMat.GetW().GetY(), viewMat.GetW().GetZ(), viewMat.GetW().GetW());
+    Float4x4 viewMatrix(r0, r1, r2, r3);
+    SunDirection.Update(viewMatrix);
+
+    // float sunLightIntensity = g_SunLightIntensity;
+    // if (ImGui::SliderFloat("Sun Light Intensity", &sunLightIntensity, 0.0f, 16.0f, "%.2f"))
+    // {
+    //     g_SunLightIntensity = sunLightIntensity;
+    // }
+    ImGui::SliderFloat("GI Intensity", &giIntensity, 0.0f, 1.0f, "%.2f");
+    mp_SDFGIManager->giIntensity = pow(giIntensity, 2.0f);
+    ImGui::SliderFloat("Hysteresis", &mp_SDFGIManager->hysteresis, 0.0f, 1.0f);
+    ImGui::Checkbox("Show Voxelized SDF Scene", &rayMarchDebug);
+    static const char* shadingOptions[]{ "Show DI + GI","Show DI Only","Show GI Only" };
+    static int shadingMode = 0;
+    ImGui::Combo("Shading", &shadingMode, shadingOptions, IM_ARRAYSIZE(shadingOptions));
+    showDIPlusGI = shadingMode == 0;
+    showDIOnly = shadingMode == 1;
+    showGIOnly = shadingMode == 2;
+    // ImGUI doesn't accept BOOL, only bool.
+    mp_SDFGIManager->showGIOnly = showGIOnly;
+    ImGui::Checkbox("Show Probes", &mp_SDFGIManager->renderProbViz);
+    static const char* envOptions[]{ "Show Environment Map","Show Irr. Atlas","Show Vis. Atlas" };
+    static int envMode = 0;
+    ImGui::Combo("Environment", &envMode, envOptions, IM_ARRAYSIZE(envOptions));
+    mp_SDFGIManager->renderIrradianceAtlas = envMode == 1;
+    mp_SDFGIManager->renderVisibilityAtlas = envMode == 2;
+    ImGui::SliderInt("Atlas Slice", &mp_SDFGIManager->renderAtlasZIndex, 0.0, mp_SDFGIManager->maxZIndex);*/
+    // ImGui::SliderFloat("Max Visibility Distance", &mp_SDFGIManager->maxVisibilityDistance, 0.0f, 1000.0f);
+
+    static const char* animMode[]{ "Animation Paused", "Animation Playing" };
+    static const char** animModeSelect = &animMode[0];
+
+    ImGui::LabelText("", *animModeSelect);
+    if (ImGui::Button("Play")) {
+        //m_ModelInst.PlayAnimation(0, true);
+        //runSDFOnce = false;
+        animModeSelect = &animMode[1];
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Pause")) {
+        //m_ModelInst.PauseAnimation(0);
+        //runSDFOnce = true;
+        animModeSelect = &animMode[0];
+    }
+
+    ImGui::End();
+
+    ImGui::Render();
+    gfxContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, Renderer::s_TextureHeap.GetHeapPointer());
+    ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), gfxContext.GetCommandList());
+
     const UINT framesToAverage = 20;
     static float frameRates[framesToAverage] = {};
     frameRates[Graphics::GetFrameCount() % framesToAverage] = Graphics::GetFrameRate();
@@ -1324,7 +1422,7 @@ void D3D12RaytracingMiniEngineSample::RenderUI(class GraphicsContext& gfxContext
     text.End();
 }
 
-void D3D12RaytracingMiniEngineSample::Raytrace(class GraphicsContext& gfxContext)
+void AnitoTracer::Raytrace(class GraphicsContext& gfxContext)
 {
     ScopedTimer _prof(L"Raytrace", gfxContext);
 
