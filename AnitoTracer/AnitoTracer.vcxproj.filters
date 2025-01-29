@@ -25,12 +25,6 @@
     <FxCompile Include="RayGenerationShaderLib.hlsl" />
     <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
     <FxCompile Include="RayGenerationShadowsLib.hlsl" />
-    <FxCompile Include="hitShaderLib.hlsl" />
-    <FxCompile Include="missShaderLib.hlsl" />
-    <FxCompile Include="missShadowsLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="RayGenerationShadowsLib.hlsl" />
     <FxCompile Include="*Lib.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
@@ -224,14 +218,17 @@
     <FxCompile Include="Source\RayGenerationShaderLib.hlsl" />
     <FxCompile Include="Source\RayGenerationShaderSSRLib.hlsl" />
     <FxCompile Include="Source\RayGenerationShadowsLib.hlsl" />
+    <FxCompile Include="Source\shaders.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModelViewer.cpp" />
+    <ClCompile Include="Source\Primitive.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DXSampleHelper.h" />
     <ClInclude Include="Source\ModelViewerRayTracing.h" />
     <ClInclude Include="Source\RayTracingHlslCompat.h" />
+    <ClInclude Include="Source\Primitive.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\Models\background.DDS">

@@ -15,6 +15,7 @@
     <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     <OutDir>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\Output\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\Intermediate\$(ProjectName)\</IntDir>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">
     <PostBuildEventUseInBuild>
@@ -73,12 +74,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='x64'">
     <Link>
-      <AdditionalDependencies>d3d12.lib;dxgi.lib;runtimeobject.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)
-	  </AdditionalDependencies>
+      <AdditionalDependencies>d3d12.lib;dxgi.lib;runtimeobject.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModelViewer.cpp" />
+    <ClCompile Include="Source\Primitive.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Logo.png" />
@@ -207,10 +208,14 @@
       <AdditionalOptions> -HV 2017 -Zpr </AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)'=='Debug'">-Zi -Qembed_debug %(AdditionalOptions)</AdditionalOptions>
     </FxCompile>
+    <FxCompile Include="Source\shaders.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DXSampleHelper.h" />
     <ClInclude Include="Source\ModelViewerRayTracing.h" />
+    <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\RayTracingHlslCompat.h" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +237,9 @@
     <FxCompile>
       <EnableDebuggingInformation Condition="'$(Configuration)'!='Release'">false</EnableDebuggingInformation>
     </FxCompile>
+    <ClCompile>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Packages\WinPixEventRuntime.1.0.240308001\build\WinPixEventRuntime.targets" Condition="Exists('..\Packages\WinPixEventRuntime.1.0.240308001\build\WinPixEventRuntime.targets')" />
