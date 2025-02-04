@@ -13,7 +13,6 @@
 
 #include "d3d12.h"
 #include "d3d12video.h"
-#include <d3d12.h>
 #include "dxgi1_3.h"
 #include "d3dx12.h"
 #include "GameCore.h"
@@ -32,7 +31,6 @@
 #include "SystemTime.h"
 #include "TextRenderer.h"
 #include "ShadowCamera.h"
-#include "ParticleEffectManager.h"
 #include "GameInput.h"
 #include "SponzaRenderer.h"
 #include "ModelH3D.h"
@@ -50,6 +48,9 @@
 
 #include "RaytracingHlslCompat.h"
 #include "ModelViewerRayTracing.h"
+#include "EngineState.h"
+
+#include "UI/UIManager.h"
 
 using namespace GameCore;
 using namespace Math;
@@ -902,6 +903,9 @@ void D3D12RaytracingMiniEngineSample::Startup( void )
     m_CameraPosArray[4].position = Vector3(-1463.0f, 600.0f, 394.52f);
     m_CameraPosArray[4].heading = -1.236f;
     m_CameraPosArray[4].pitch = 0.0f;
+
+    EngineState::initialize();
+    UIManager::initialize();
 }
 
 void D3D12RaytracingMiniEngineSample::Cleanup( void )
@@ -980,6 +984,8 @@ void D3D12RaytracingMiniEngineSample::Update( float deltaT )
     m_MainScissor.top = 0;
     m_MainScissor.right = (LONG)g_SceneColorBuffer.GetWidth();
     m_MainScissor.bottom = (LONG)g_SceneColorBuffer.GetHeight();
+
+    UIManager::getInstance()->update();
 }
 
 void D3D12RaytracingMiniEngineSample::SetCameraToPredefinedPosition(int cameraPosition) 
@@ -1308,7 +1314,7 @@ void D3D12RaytracingMiniEngineSample::RaytraceReflections(
 
 void D3D12RaytracingMiniEngineSample::RenderUI(class GraphicsContext& gfxContext)
 {
-    const UINT framesToAverage = 20;
+    /*const UINT framesToAverage = 20;
     static float frameRates[framesToAverage] = {};
     frameRates[Graphics::GetFrameCount() % framesToAverage] = Graphics::GetFrameRate();
     float rollingAverageFrameRate = 0.0;
@@ -1321,7 +1327,9 @@ void D3D12RaytracingMiniEngineSample::RenderUI(class GraphicsContext& gfxContext
     TextContext text(gfxContext);
     text.Begin();
     text.DrawFormattedString("\nMillion Primary Rays/s: %7.3f", primaryRaysPerSec);
-    text.End();
+    text.End();*/
+
+    UIManager::getInstance()->draw(gfxContext);
 }
 
 void D3D12RaytracingMiniEngineSample::Raytrace(class GraphicsContext& gfxContext)

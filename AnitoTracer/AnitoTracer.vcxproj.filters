@@ -19,18 +19,6 @@
     <FxCompile Include="RayGenerationShaderLib.hlsl" />
     <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
     <FxCompile Include="RayGenerationShadowsLib.hlsl" />
-    <FxCompile Include="hitShaderLib.hlsl" />
-    <FxCompile Include="missShaderLib.hlsl" />
-    <FxCompile Include="missShadowsLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="RayGenerationShadowsLib.hlsl" />
-    <FxCompile Include="hitShaderLib.hlsl" />
-    <FxCompile Include="missShaderLib.hlsl" />
-    <FxCompile Include="missShadowsLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="RayGenerationShadowsLib.hlsl" />
     <FxCompile Include="*Lib.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
@@ -227,11 +215,50 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModelViewer.cpp" />
+    <ClCompile Include="Source\UI\UIManager.cpp" />
+    <ClCompile Include="Source\UI\UIScreen.cpp" />
+    <ClCompile Include="Source\UI\ColorPickerScreen.cpp" />
+    <ClCompile Include="Source\UI\CreditsScreen.cpp" />
+    <ClCompile Include="Source\UI\HierarchyScreen.cpp" />
+    <ClCompile Include="Source\UI\InspectorScreen.cpp" />
+    <ClCompile Include="Source\UI\MenuScreen.cpp" />
+    <ClCompile Include="Source\UI\ProfilerScreen.cpp" />
+    <ClCompile Include="Source\UI\SceneToolsScreen.cpp" />
+    <ClCompile Include="Source\EngineState.cpp" />
+    <ClCompile Include="imgui-docking\imgui.cpp" />
+    <ClCompile Include="imgui-docking\imgui_demo.cpp" />
+    <ClCompile Include="imgui-docking\imgui_draw.cpp" />
+    <ClCompile Include="imgui-docking\imgui_impl_dx12.cpp" />
+    <ClCompile Include="imgui-docking\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui-docking\imgui_stdlib.cpp" />
+    <ClCompile Include="imgui-docking\imgui_tables.cpp" />
+    <ClCompile Include="imgui-docking\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DXSampleHelper.h" />
     <ClInclude Include="Source\ModelViewerRayTracing.h" />
     <ClInclude Include="Source\RayTracingHlslCompat.h" />
+    <ClInclude Include="Source\UI\UIInclude.h" />
+    <ClInclude Include="Source\UI\UIManager.h" />
+    <ClInclude Include="Source\UI\UIScreen.h" />
+    <ClInclude Include="Source\UI\ColorPickerScreen.h" />
+    <ClInclude Include="Source\UI\CreditsScreen.h" />
+    <ClInclude Include="Source\UI\HierarchyScreen.h" />
+    <ClInclude Include="Source\UI\ImGuiInclude.h" />
+    <ClInclude Include="Source\UI\InspectorScreen.h" />
+    <ClInclude Include="Source\UI\MenuScreen.h" />
+    <ClInclude Include="Source\UI\ProfilerScreen.h" />
+    <ClInclude Include="Source\UI\SceneToolsScreen.h" />
+    <ClInclude Include="Source\EngineState.h" />
+    <ClInclude Include="imgui-docking\imconfig.h" />
+    <ClInclude Include="imgui-docking\imgui.h" />
+    <ClInclude Include="imgui-docking\imgui_impl_dx12.h" />
+    <ClInclude Include="imgui-docking\imgui_impl_win32.h" />
+    <ClInclude Include="imgui-docking\imgui_internal.h" />
+    <ClInclude Include="imgui-docking\imgui_stdlib.h" />
+    <ClInclude Include="imgui-docking\imstb_rectpack.h" />
+    <ClInclude Include="imgui-docking\imstb_textedit.h" />
+    <ClInclude Include="imgui-docking\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\Models\background.DDS">
@@ -414,6 +441,7 @@
     <None Include="..\..\..\..\..\MiniEngine\ModelViewer\Sponza\sponza.h3d">
       <Filter>Resources</Filter>
     </None>
+    <None Include="imgui-docking\imgui.natstepfilter" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shaders">
@@ -422,5 +450,8 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{8be3895e-9f38-4b8d-bf48-b94d69970e47}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="imgui-docking\imgui.natvis" />
   </ItemGroup>
 </Project>

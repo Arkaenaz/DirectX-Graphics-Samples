@@ -65,7 +65,7 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\;..\MiniEngine\Core;..\MiniEngine\Model;$(ProjectDir)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\;..\MiniEngine\Core;..\MiniEngine\Model;$(ProjectDir)\Source;$(ProjectDir)\imgui-docking;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link Condition="'$(Configuration)'=='Debug'">
       <AdditionalOptions>/nodefaultlib:MSVCRT %(AdditionalOptions)</AdditionalOptions>
@@ -78,7 +78,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="imgui-docking\imgui.cpp" />
+    <ClCompile Include="imgui-docking\imgui_demo.cpp" />
+    <ClCompile Include="imgui-docking\imgui_draw.cpp" />
+    <ClCompile Include="imgui-docking\imgui_impl_dx12.cpp" />
+    <ClCompile Include="imgui-docking\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui-docking\imgui_stdlib.cpp" />
+    <ClCompile Include="imgui-docking\imgui_tables.cpp" />
+    <ClCompile Include="imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="Source\EngineState.cpp" />
     <ClCompile Include="Source\ModelViewer.cpp" />
+    <ClCompile Include="Source\UI\ColorPickerScreen.cpp" />
+    <ClCompile Include="Source\UI\CreditsScreen.cpp" />
+    <ClCompile Include="Source\UI\HierarchyScreen.cpp" />
+    <ClCompile Include="Source\UI\InspectorScreen.cpp" />
+    <ClCompile Include="Source\UI\MenuScreen.cpp" />
+    <ClCompile Include="Source\UI\ProfilerScreen.cpp" />
+    <ClCompile Include="Source\UI\SceneToolsScreen.cpp" />
+    <ClCompile Include="Source\UI\UIManager.cpp" />
+    <ClCompile Include="Source\UI\UIScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Logo.png" />
@@ -147,6 +165,7 @@
     <None Include="..\..\..\..\..\MiniEngine\ModelViewer\Sponza\sponza.h3d">
       <DeploymentContent>true</DeploymentContent>
     </None>
+    <None Include="imgui-docking\imgui.natstepfilter" />
     <None Include="packages.config" />
     <None Include="readme.md" />
   </ItemGroup>
@@ -209,9 +228,30 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="imgui-docking\imconfig.h" />
+    <ClInclude Include="imgui-docking\imgui.h" />
+    <ClInclude Include="imgui-docking\imgui_impl_dx12.h" />
+    <ClInclude Include="imgui-docking\imgui_impl_win32.h" />
+    <ClInclude Include="imgui-docking\imgui_internal.h" />
+    <ClInclude Include="imgui-docking\imgui_stdlib.h" />
+    <ClInclude Include="imgui-docking\imstb_rectpack.h" />
+    <ClInclude Include="imgui-docking\imstb_textedit.h" />
+    <ClInclude Include="imgui-docking\imstb_truetype.h" />
     <ClInclude Include="Source\DXSampleHelper.h" />
+    <ClInclude Include="Source\EngineState.h" />
     <ClInclude Include="Source\ModelViewerRayTracing.h" />
     <ClInclude Include="Source\RayTracingHlslCompat.h" />
+    <ClInclude Include="Source\UI\ColorPickerScreen.h" />
+    <ClInclude Include="Source\UI\CreditsScreen.h" />
+    <ClInclude Include="Source\UI\HierarchyScreen.h" />
+    <ClInclude Include="Source\UI\ImGuiInclude.h" />
+    <ClInclude Include="Source\UI\InspectorScreen.h" />
+    <ClInclude Include="Source\UI\MenuScreen.h" />
+    <ClInclude Include="Source\UI\ProfilerScreen.h" />
+    <ClInclude Include="Source\UI\SceneToolsScreen.h" />
+    <ClInclude Include="Source\UI\UIInclude.h" />
+    <ClInclude Include="Source\UI\UIManager.h" />
+    <ClInclude Include="Source\UI\UIScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MiniEngine\Core\Core.vcxproj">
@@ -221,10 +261,14 @@
       <Project>{5d3aeefb-8789-48e5-9bd9-09c667052d09}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="imgui-docking\imgui.natvis" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemDefinitionGroup>
     <Link>
       <AdditionalOptions>/nodefaultlib:LIBCMT %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
