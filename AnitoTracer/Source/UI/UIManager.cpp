@@ -115,10 +115,10 @@ void UIManager::draw(GraphicsContext& CmdContext)
 	ImGui::NewFrame();
 
 	ImGui::ShowDemoWindow();
-	for (UIScreen* screen : list) {
+	/*for (UIScreen* screen : list) {
 		if (screen->getActive())
 			screen->drawUI();
-	}
+	}*/
 	
 	ImGui::Render();
 	CmdContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, Renderer::s_TextureHeap.GetHeapPointer());
