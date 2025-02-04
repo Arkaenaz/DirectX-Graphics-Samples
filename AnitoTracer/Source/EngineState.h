@@ -10,6 +10,8 @@ public:
 
 	EditorState getState() { return this->state; }
 	void setState(EditorState engState) { this->state = engState; }
+	bool isFrameStepping() { return this->frameStepping; }
+	void setFrameStepping(bool stepping) { this->frameStepping = stepping; }
 
 private:
 	EngineState();
@@ -18,6 +20,7 @@ private:
 	EngineState& operator = (EngineState const&) {};
 	static EngineState* sharedInstance;
 
-	EditorState state;
+	EditorState state = EDIT;
+	bool frameStepping = false;
 };
 

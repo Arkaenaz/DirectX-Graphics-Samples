@@ -35,6 +35,7 @@ class UIManager
 	private:
 		UIScreenList list;
 		UIScreenTable table;
+		bool firstTime = true;
 
 		static UIManager* sharedInstance;
 		UIManager();
@@ -49,8 +50,8 @@ class UIManager
 
 		void update();
 		void draw(GraphicsContext& CmdContext);
-		void openWindow(String name);
 		void drawDockspace();
+		void openWindow(String name);
 		void setActive(std::string name);
 		void addViewport(UIScreen* viewport);
 		void setUIStyle();

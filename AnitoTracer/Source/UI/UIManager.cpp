@@ -4,7 +4,9 @@
 #include "BufferManager.h"
 #include "CommandContext.h"
 #include "CommandListManager.h"
+#include "EngineState.h"
 #include "GraphicsCore.h"
+#include "imgui_internal.h"
 #include "Renderer.h"
 
 namespace GameCore { extern HWND g_hWnd; }
@@ -114,6 +116,8 @@ void UIManager::draw(GraphicsContext& CmdContext)
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
+	this->drawDockspace();
+
 	ImGui::ShowDemoWindow();
 	/*for (UIScreen* screen : list) {
 		if (screen->getActive())
@@ -123,6 +127,131 @@ void UIManager::draw(GraphicsContext& CmdContext)
 	ImGui::Render();
 	CmdContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, Renderer::s_TextureHeap.GetHeapPointer());
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), CmdContext.GetCommandList());
+}
+
+void UIManager::drawDockspace()
+{
+	ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+	ImGui::SetNextWindowPos(viewport->WorkPos);
+	ImGui::SetNextWindowSize(viewport->WorkSize);
+	ImGui::SetNextWindowViewport(viewport->ID);
+
+	ImGuiWindowFlags host_window_flags = 0;
+	host_window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoDocking;
+	host_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+	ImGui::Begin("Main Window", NULL, host_window_flags);
+	ImGui::PopStyleVar(3);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 0.0f);
+
+	ImGuiStyle& style = ImGui::GetStyle();
+	float width = 0.0f;
+	width += ImGui::CalcTextSize("Play").x;
+	width += style.ItemSpacing.x;
+	width += ImGui::CalcTextSize("Pause").x;
+	width += style.ItemSpacing.x;
+	width += ImGui::CalcTextSize("Step").x;
+	AlignForWidth(width);
+
+	if (ImGui::Button("Play"))
+	{
+		if (EngineState::getInstance()->getState() == EngineState::EDIT)
+			EngineState::getInstance()->setState(EngineState::PLAY);
+		else
+			EngineState::getInstance()->setState(EngineState::EDIT);
+	}
+
+	ImGui::SameLine();
+	if (ImGui::Button("Pause"))
+	{
+		if (EngineState::getInstance()->getState() == EngineState::PLAY)
+			EngineState::getInstance()->setState(EngineState::PAUSE);
+		else if (EngineState::getInstance()->getState() == EngineState::PAUSE)
+			EngineState::getInstance()->setState(EngineState::PLAY);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Step"))
+	{
+		if (EngineState::getInstance()->getState() == EngineState::PAUSE)
+			EngineState::getInstance()->setFrameStepping(true);
+	}
+	ImGui::PopStyleVar();
+
+	ImGuiID id = ImGui::GetID("Main Window");
+	ImGui::DockSpace(id);
+
+	ImGui::End();
+
+	if (firstTime)
+	{
+		ImVec2 workCenter = ImGui::GetMainViewport()->GetWorkCenter();
+
+		ImGui::DockBuilderRemoveNode(id);
+		ImGui::DockBuilderAddNode(id);
+
+		ImVec2 size{ WINDOW_WIDTH, WINDOW_HEIGHT };
+		ImVec2 nodePos{ workCenter.x - size.x * 0.5f, workCenter.y - size.y * 0.5f };
+
+		ImGui::DockBuilderSetNodeSize(id, size);
+		ImGui::DockBuilderSetNodePos(id, nodePos);
+
+		ImGuiID dock1 = ImGui::DockBuilderSplitNode(id, ImGuiDir_Right, 0.3f, nullptr, &id);
+		ImGuiID dock2 = ImGui::DockBuilderSplitNode(dock1, ImGuiDir_Left, 0.5f, nullptr, &dock1);
+		ImGuiID dock3 = ImGui::DockBuilderSplitNode(id, ImGuiDir_Left, 0.5f, nullptr, &id);
+		ImGuiID dock4 = ImGui::DockBuilderSplitNode(dock3, ImGuiDir_Down, 0.25f, nullptr, &dock3);
+
+		ImGuiID dockProfiler = ImGui::DockBuilderSplitNode(dock4, ImGuiDir_Left, 0.25f, nullptr, &dock4);
+		ImGuiID dockLogger = dock4;
+
+		ImGuiID dock3_top = ImGui::DockBuilderSplitNode(dock3, ImGuiDir_Up, 0.5f, nullptr, &dock3);
+		ImGuiID dock3_bottom = dock3;
+
+		ImGuiID dock3_top_left = ImGui::DockBuilderSplitNode(dock3_top, ImGuiDir_Left, 0.5f, nullptr, &dock3_top);
+		ImGuiID dock3_top_right = dock3_top;
+
+		ImGuiID dock3_bottom_left = ImGui::DockBuilderSplitNode(dock3_bottom, ImGuiDir_Left, 0.5f, nullptr, &dock3_bottom);
+		ImGuiID dock3_bottom_right = dock3_bottom;
+
+		ImGui::DockBuilderDockWindow("Inspector", dock1);
+		ImGui::DockBuilderDockWindow("Hierarchy", dock2);
+		ImGui::DockBuilderDockWindow("Viewport 1", dock3_top_left);
+		ImGui::DockBuilderDockWindow("Viewport 2", dock3_top_right);
+		ImGui::DockBuilderDockWindow("Viewport 3", dock3_bottom_left);
+		ImGui::DockBuilderDockWindow("Viewport 4", dock3_bottom_right);
+		ImGui::DockBuilderDockWindow("Profiler", dockProfiler);
+		ImGui::DockBuilderDockWindow("Logger", dockLogger);
+
+		ImGui::DockBuilderFinish(id);
+
+		firstTime = false;
+	}
+}
+
+void UIManager::setActive(std::string name)
+{
+	this->table[name]->setActive(true);
+}
+
+void UIManager::addViewport(UIScreen* viewport)
+{
+	/*UINames uiNames;
+	this->table[uiNames.VIEWPORT_SCREEN] = viewport;
+	this->list.push_back(viewport);*/
+}
+
+void UIManager::AlignForWidth(float width, float alignment)
+{
+	ImGuiStyle& style = ImGui::GetStyle();
+	float avail = ImGui::GetContentRegionAvail().x;
+	float off = (avail - width) * alignment;
+	if (off > 0.0f)
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + off);
 }
 
 void UIManager::openWindow(String name)
