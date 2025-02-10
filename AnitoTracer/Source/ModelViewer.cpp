@@ -50,6 +50,7 @@
 #include "ModelViewerRayTracing.h"
 #include "EngineState.h"
 
+#include "Primitive.h"
 #include "UI/UIManager.h"
 
 using namespace GameCore;
@@ -197,6 +198,9 @@ private:
     D3D12_VIEWPORT m_MainViewport;
     D3D12_RECT m_MainScissor;
 
+    Primitive* cube;
+    RootSignature rs;
+
     struct CameraPosition
     {
         Vector3 position;
@@ -252,7 +256,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance
     //TargetResolution = k720p;
     //g_DisplayWidth = 1280;
     //g_DisplayHeight = 720;
-    GameCore::RunApplication(D3D12RaytracingMiniEngineSample(), L"D3D12RaytracingMiniEngineSample", hInstance, nCmdShow); 
+    D3D12RaytracingMiniEngineSample app = D3D12RaytracingMiniEngineSample();
+    GameCore::RunApplication(app, L"D3D12RaytracingMiniEngineSample", hInstance, nCmdShow); 
     return 0;
 }
 
@@ -703,6 +708,14 @@ void D3D12RaytracingMiniEngineSample::Startup( void )
 
     Sponza::Startup(m_Camera);
 
+   
+    rs.Reset(1, 0);
+    rs[0].InitAsConstantBuffer(0, D3D12_SHADER_VISIBILITY_VERTEX);
+    rs.Finalize(L"box signature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+
+    cube = new Primitive("cube", Primitive::ObjectType::CUBE, &rs);
+    cube->createCube();
+
     m_Camera.SetZRange( 1.0f, 10000.0f );
     m_CameraController.reset(new FlyingFPSCamera(m_Camera, Vector3(kYUnitVector)));
 
@@ -1021,6 +1034,8 @@ void D3D12RaytracingMiniEngineSample::RenderScene(void)
 
     Sponza::RenderScene(gfxContext, m_Camera, viewport, scissor, skipDiffusePass, skipShadowMap);
 
+    cube->draw(gfxContext, m_Camera.GetViewMatrix());
+
     // Some systems generate a per-pixel velocity buffer to better track dynamic and skinned meshes.  Everything
     // is static in our scene, so we generate velocity from camera motion and the depth buffer.  A velocity buffer
     // is necessary for all temporal effects (and motion blur).
@@ -1056,7 +1071,8 @@ void Raytracebarycentrics(
     auto m0 = camera.GetViewProjMatrix();
     auto m1 = Transpose(Invert(m0));
     memcpy(&inputs.cameraToWorld, &m1, sizeof(inputs.cameraToWorld));
-    memcpy(&inputs.worldCameraPosition, &camera.GetPosition(), sizeof(inputs.worldCameraPosition));
+    Vector3 pos = camera.GetPosition();
+    memcpy(&inputs.worldCameraPosition, &pos, sizeof(inputs.worldCameraPosition));
     inputs.resolution.x = (float)colorTarget.GetWidth();
     inputs.resolution.y = (float)colorTarget.GetHeight();
 
@@ -1104,7 +1120,8 @@ void RaytracebarycentricsSSR(
     auto m0 = camera.GetViewProjMatrix();
     auto m1 = Transpose(Invert(m0));
     memcpy(&inputs.cameraToWorld, &m1, sizeof(inputs.cameraToWorld));
-    memcpy(&inputs.worldCameraPosition, &camera.GetPosition(), sizeof(inputs.worldCameraPosition));
+    Vector3 pos = camera.GetPosition();
+    memcpy(&inputs.worldCameraPosition, &pos, sizeof(inputs.worldCameraPosition));
     inputs.resolution.x = (float)colorTarget.GetWidth();
     inputs.resolution.y = (float)colorTarget.GetHeight();
 
@@ -1154,7 +1171,8 @@ void D3D12RaytracingMiniEngineSample::RaytraceShadows(
     auto m0 = camera.GetViewProjMatrix();
     auto m1 = Transpose(Invert(m0));
     memcpy(&inputs.cameraToWorld, &m1, sizeof(inputs.cameraToWorld));
-    memcpy(&inputs.worldCameraPosition, &camera.GetPosition(), sizeof(inputs.worldCameraPosition));
+    Vector3 pos = camera.GetPosition();
+    memcpy(&inputs.worldCameraPosition, &pos, sizeof(inputs.worldCameraPosition));
     inputs.resolution.x = (float)colorTarget.GetWidth();
     inputs.resolution.y = (float)colorTarget.GetHeight();
 
@@ -1211,7 +1229,8 @@ void D3D12RaytracingMiniEngineSample::RaytraceDiffuse(
     auto m0 = camera.GetViewProjMatrix();
     auto m1 = Transpose(Invert(m0));
     memcpy(&inputs.cameraToWorld, &m1, sizeof(inputs.cameraToWorld));
-    memcpy(&inputs.worldCameraPosition, &camera.GetPosition(), sizeof(inputs.worldCameraPosition));
+    Vector3 pos = camera.GetPosition();
+    memcpy(&inputs.worldCameraPosition, &pos, sizeof(inputs.worldCameraPosition));
     inputs.resolution.x = (float)colorTarget.GetWidth();
     inputs.resolution.y = (float)colorTarget.GetHeight();
 
@@ -1267,7 +1286,8 @@ void D3D12RaytracingMiniEngineSample::RaytraceReflections(
     auto m0 = camera.GetViewProjMatrix();
     auto m1 = Transpose(Invert(m0));
     memcpy(&inputs.cameraToWorld, &m1, sizeof(inputs.cameraToWorld));
-    memcpy(&inputs.worldCameraPosition, &camera.GetPosition(), sizeof(inputs.worldCameraPosition));
+    Vector3 pos = camera.GetPosition();
+    memcpy(&inputs.worldCameraPosition, &pos, sizeof(inputs.worldCameraPosition));
     inputs.resolution.x = (float)colorTarget.GetWidth();
     inputs.resolution.y = (float)colorTarget.GetHeight();
 
