@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include "Source/Dx12/InterfacePointers.h"
+#include "InterfacePointers.h"
 
 namespace DirectXUtil
 {

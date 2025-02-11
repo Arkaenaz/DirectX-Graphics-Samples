@@ -101,10 +101,9 @@ void DirectXUtil::Primitive::calculateTangentSpace(Shape& shape)
 
 void DirectXUtil::Primitive::CreateShapeResources(SampleFramework::ID3D12Device5Ptr pDevice)
 {
-	if (createdPrimitive == nullptr)
-	{
-		createdPrimitive = new ShapeResources();
-	}
+
+	createdPrimitive = new ShapeResources();
+
 
 	// Ensure the contents are reset
 	memset(createdPrimitive, 0, sizeof(ShapeResources));

@@ -91,6 +91,7 @@
     <ClCompile Include="Libs\GraphicsPipeline.cpp" />
     <ClCompile Include="Libs\RTPipeline.cpp" />
     <ClCompile Include="Source\EngineState.cpp" />
+    <ClCompile Include="Source\EngineTime.cpp" />
     <ClCompile Include="Source\ModelViewer.cpp" />
     <ClCompile Include="Source\Object.cpp" />
     <ClCompile Include="Source\ObjectManager.cpp" />
@@ -108,6 +109,8 @@
     <ClCompile Include="Source\UI\SceneToolsScreen.cpp" />
     <ClCompile Include="Source\UI\UIManager.cpp" />
     <ClCompile Include="Source\UI\UIScreen.cpp" />
+    <ClCompile Include="Source\Win32Application.cpp" />
+    <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Logo.png" />
@@ -271,6 +274,7 @@
     <ClInclude Include="Libs\Structs\VertexPositionNormalTangentTexture.h" />
     <ClInclude Include="Source\DXSampleHelper.h" />
     <ClInclude Include="Source\EngineState.h" />
+    <ClInclude Include="Source\EngineTime.h" />
     <ClInclude Include="Source\ModelViewerRayTracing.h" />
     <ClInclude Include="Source\Object.h" />
     <ClInclude Include="Source\ObjectManager.h" />
@@ -291,6 +295,8 @@
     <ClInclude Include="Source\UI\UIInclude.h" />
     <ClInclude Include="Source\UI\UIManager.h" />
     <ClInclude Include="Source\UI\UIScreen.h" />
+    <ClInclude Include="Source\Win32Application.h" />
+    <ClInclude Include="Source\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MiniEngine\Core\Core.vcxproj">

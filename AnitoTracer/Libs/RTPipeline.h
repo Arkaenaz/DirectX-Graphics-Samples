@@ -3,10 +3,6 @@
 #include <vector>
 #include "Structs/DxilLibrary.h"
 
-#define NV_D3D_CALL(a) {HRESULT hr_ = a; if(FAILED(hr_)) { d3dTraceHR( #a, hr_); }}
-#define NV_ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
-#define NV_ALIGN_TO(_alignment, _val) (((_val + _alignment - 1) / _alignment) * _alignment)
-
 namespace DirectXUtil
 {
 	class RTPipeline

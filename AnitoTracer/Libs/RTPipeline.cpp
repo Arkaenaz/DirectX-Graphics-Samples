@@ -2,7 +2,7 @@
 
 #include <fstream>
 #include <sstream>
-//#include "Source/Window.h"
+#include "../Source/Window.h"
 #include "Helper.h"
 #include "dxcapi.use.h"
 

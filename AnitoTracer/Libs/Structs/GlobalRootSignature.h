@@ -1,8 +1,8 @@
 #pragma once
 
 #include <d3d12.h>
-#include "Source/Dx12/InterfacePointers.h"
-#include "Source/AppWindow.h"
+#include "InterfacePointers.h"
+#include "../Source/AppWindow.h"
 
 namespace DirectXUtil
 {
