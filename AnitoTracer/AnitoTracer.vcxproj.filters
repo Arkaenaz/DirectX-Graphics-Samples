@@ -7,12 +7,6 @@
     <FxCompile Include="RayGenerationShaderLib.hlsl" />
     <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
     <FxCompile Include="RayGenerationShadowsLib.hlsl" />
-    <FxCompile Include="hitShaderLib.hlsl" />
-    <FxCompile Include="missShaderLib.hlsl" />
-    <FxCompile Include="missShadowsLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="RayGenerationShadowsLib.hlsl" />
     <FxCompile Include="*Lib.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
@@ -233,6 +227,36 @@
     <ClCompile Include="Source\Primitive.cpp">
       <Filter>Primitive</Filter>
     </ClCompile>
+    <ClCompile Include="Libs\AccelerationStructures.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\D3D12GraphicsContext.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\GraphicsPipeline.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Libs\RTPipeline.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Primitives\Cube.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Primitives\Primitive.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Primitives\Quad.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Primitives\Sphere.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Object.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ObjectManager.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DXSampleHelper.h" />
@@ -261,6 +285,78 @@
     <ClInclude Include="imgui-docking\imstb_truetype.h" />
     <ClInclude Include="Source\Primitive.h">
       <Filter>Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\AccelerationStructures.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\D3D12GraphicsContext.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\GraphicsPipeline.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\RTPipeline.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\AccelerationStructureBuffers.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\DxilLibrary.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\ExportAssociation.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\FrameObject.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\GlobalRootSignature.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\HeapData.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\HitProgram.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\LocalRootSignature.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\PipelineConfig.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\PrimitiveCB.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\SceneCB.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\ShaderConfig.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\Structs\VertexPositionNormalTangentTexture.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Libs\InterfacePointers.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Primitives\Cube.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Primitives\Primitive.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Primitives\Quad.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Primitives\Sphere.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Object.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ObjectManager.h">
+      <Filter>Primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -455,6 +551,12 @@
     </Filter>
     <Filter Include="Primitive">
       <UniqueIdentifier>{38b0d3ab-cbc8-4e48-a302-e3a64ae89957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{f155da7c-def4-4c09-a042-adb01358042e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primitives">
+      <UniqueIdentifier>{1b68235b-3866-4f0a-a858-95859b23b763}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

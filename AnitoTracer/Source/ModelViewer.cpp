@@ -50,7 +50,13 @@
 #include "ModelViewerRayTracing.h"
 #include "EngineState.h"
 
-#include "Primitive.h"
+#include "AccelerationStructures.h"
+#include "glm.hpp"
+#include "InterfacePointers.h"
+
+
+#include "Primitives/Primitive.h"
+#include "ObjectManager.h"
 #include "UI/UIManager.h"
 
 using namespace GameCore;
@@ -198,7 +204,7 @@ private:
     D3D12_VIEWPORT m_MainViewport;
     D3D12_RECT m_MainScissor;
 
-    Primitive* cube;
+    //Primitive* cube;
     RootSignature rs;
 
     struct CameraPosition
@@ -708,13 +714,13 @@ void D3D12RaytracingMiniEngineSample::Startup( void )
 
     Sponza::Startup(m_Camera);
 
-   
+    
     rs.Reset(1, 0);
     rs[0].InitAsConstantBuffer(0, D3D12_SHADER_VISIBILITY_VERTEX);
     rs.Finalize(L"box signature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
-    cube = new Primitive("cube", Primitive::ObjectType::CUBE, &rs);
-    cube->createCube();
+    //cube = new Primitive("cube", Primitive::ObjectType::CUBE, &rs);
+    //cube->createCube();
 
     m_Camera.SetZRange( 1.0f, 10000.0f );
     m_CameraController.reset(new FlyingFPSCamera(m_Camera, Vector3(kYUnitVector)));
@@ -1034,7 +1040,7 @@ void D3D12RaytracingMiniEngineSample::RenderScene(void)
 
     Sponza::RenderScene(gfxContext, m_Camera, viewport, scissor, skipDiffusePass, skipShadowMap);
 
-    cube->draw(gfxContext, m_Camera.GetViewMatrix());
+    //cube->draw(gfxContext, m_Camera.GetViewMatrix());
 
     // Some systems generate a per-pixel velocity buffer to better track dynamic and skinned meshes.  Everything
     // is static in our scene, so we generate velocity from camera motion and the depth buffer.  A velocity buffer
