@@ -173,6 +173,14 @@ namespace GameCore
 
         switch( message )
         {
+        case WM_CREATE:
+        {
+            break;
+        }
+        case WM_MOUSEMOVE:
+        case WM_SETCURSOR:
+            SetCursor(LoadCursor(nullptr, IDC_ARROW)); // Ensure cursor is visible
+            return TRUE;
         case WM_SIZE:
             Display::Resize((UINT)(UINT64)lParam & 0xFFFF, (UINT)(UINT64)lParam >> 16);
             break;

@@ -100,7 +100,7 @@ UIManager::UIManager()
 	this->list.push_back(stScreen);
 
 	//ViewportManager::getInstance()->createViewport();
-	//ShowCursor(TRUE);
+	ShowCursor(TRUE);
 }
 
 UIManager::~UIManager()
@@ -121,9 +121,9 @@ void UIManager::draw(GraphicsContext& CmdContext)
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	this->drawDockspace();
+	//this->drawDockspace();
 
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	for (UIScreen* screen : list) {
 		if (screen->getActive())
 			screen->drawUI();
@@ -134,7 +134,7 @@ void UIManager::draw(GraphicsContext& CmdContext)
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), CmdContext.GetCommandList());
 
 	ImGuiIO& io = ImGui::GetIO();
-	//DEBUGPRINT("Mouse Pos: (%f, %f)", io.MousePos.x, io.MousePos.y);
+	DEBUGPRINT("Mouse Pos: (%f, %f)", io.MousePos.x, io.MousePos.y);
 	if (io.MouseDown[0])
 		DEBUGPRINT("Mouse Down: %d", io.MouseDown[0]);
 }

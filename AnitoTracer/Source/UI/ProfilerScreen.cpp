@@ -19,7 +19,11 @@ void ProfilerScreen::drawUI()
     float cpuTime = EngineProfiling::cpuTime;
     float gpuTime = EngineProfiling::gpuTime;
 
-    ImGui::Text("CPU %7.3f ms, GPU %7.3f ms\n", cpuTime, gpuTime);
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.MouseDown[0])
+		ImGui::Text("Mouse Down: %d", io.MouseDown[0]);
+	ImGui::Text("Mouse Pos: (%f, %f)", io.MousePos.x, io.MousePos.y);
+	ImGui::Text("CPU %7.3f ms, GPU %7.3f ms\n", cpuTime, gpuTime);
 
 	ImGui::Text("%f ms/frame, %f FPS", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
