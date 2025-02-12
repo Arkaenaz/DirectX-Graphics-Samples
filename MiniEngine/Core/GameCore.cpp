@@ -23,7 +23,12 @@
 #include "Util/CommandLineArg.h"
 #include <shellapi.h>
 
+#include "../../AnitoTracer/imgui-docking/imgui.h"
+#include "../../AnitoTracer/imgui-docking/imgui_impl_dx12.h"
+#include "../../AnitoTracer/imgui-docking/imgui_impl_win32.h" 
+
 #pragma comment(lib, "runtimeobject.lib") 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND windowHandle, UINT msg, WPARAM wParam, LPARAM lParam);
 
 namespace GameCore
 {
@@ -161,6 +166,11 @@ namespace GameCore
     //--------------------------------------------------------------------------------------
     LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
     {
+        if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+        {
+            return true;
+        }
+
         switch( message )
         {
         case WM_SIZE:
@@ -177,5 +187,4 @@ namespace GameCore
 
         return 0;
     }
-
 }

@@ -100,7 +100,7 @@ UIManager::UIManager()
 	this->list.push_back(stScreen);
 
 	//ViewportManager::getInstance()->createViewport();
-	ShowCursor(TRUE);
+	//ShowCursor(TRUE);
 }
 
 UIManager::~UIManager()

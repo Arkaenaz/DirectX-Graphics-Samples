@@ -227,6 +227,7 @@ inline bool IsDirectXRaytracingSupported(IDXGIAdapter1* adapter)
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ LPWSTR /*lpCmdLine*/, _In_ int nCmdShow)
 {
+    ShowCursor(TRUE);
 
 #if _DEBUG
     ComPtr<ID3D12Debug> debugInterface;
@@ -1385,11 +1386,3 @@ void D3D12RaytracingMiniEngineSample::Raytrace(class GraphicsContext& gfxContext
     // Clear the gfxContext's descriptor heap since ray tracing changes this underneath the sheets
     gfxContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, nullptr);
 }
-
-
-//extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND windowHandle, UINT msg, WPARAM wParam, LPARAM lParam);
-//
-//if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-//{
-//    return true;
-//}
