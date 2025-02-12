@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <FxCompile Include="hitShaderLib.hlsl" />
-    <FxCompile Include="missShaderLib.hlsl" />
-    <FxCompile Include="missShadowsLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="RayGenerationShadowsLib.hlsl" />
-    <FxCompile Include="hitShaderLib.hlsl" />
-    <FxCompile Include="missShaderLib.hlsl" />
-    <FxCompile Include="missShadowsLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="RayGenerationShadowsLib.hlsl" />
     <FxCompile Include="*Lib.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
@@ -233,6 +221,8 @@
     <ClCompile Include="Source\Primitive.cpp">
       <Filter>Primitive</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UI\ProfilerWindow.cpp" />
+    <ClCompile Include="Source\UI\Profiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DXSampleHelper.h" />
@@ -262,6 +252,26 @@
     <ClInclude Include="Source\Primitive.h">
       <Filter>Primitive</Filter>
     </ClInclude>
+    <ClInclude Include="Libs\AccelerationStructures.h" />
+    <ClInclude Include="Libs\D3D12GraphicsContext.h" />
+    <ClInclude Include="Libs\GraphicsPipeline.h" />
+    <ClInclude Include="Libs\InterfacePointers.h" />
+    <ClInclude Include="Libs\RTPipeline.h" />
+    <ClInclude Include="Libs\Structs\AccelerationStructureBuffers.h" />
+    <ClInclude Include="Libs\Structs\DxilLibrary.h" />
+    <ClInclude Include="Libs\Structs\ExportAssociation.h" />
+    <ClInclude Include="Libs\Structs\FrameObject.h" />
+    <ClInclude Include="Libs\Structs\GlobalRootSignature.h" />
+    <ClInclude Include="Libs\Structs\HeapData.h" />
+    <ClInclude Include="Libs\Structs\HitProgram.h" />
+    <ClInclude Include="Libs\Structs\LocalRootSignature.h" />
+    <ClInclude Include="Libs\Structs\PipelineConfig.h" />
+    <ClInclude Include="Libs\Structs\PrimitiveCB.h" />
+    <ClInclude Include="Libs\Structs\SceneCB.h" />
+    <ClInclude Include="Libs\Structs\ShaderConfig.h" />
+    <ClInclude Include="Libs\Structs\VertexPositionNormalTangentTexture.h" />
+    <ClInclude Include="Source\UI\Profiler.h" />
+    <ClInclude Include="Source\UI\IconsFontAwesome4.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\Models\background.DDS">
@@ -459,5 +469,8 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="imgui-docking\imgui.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Source\UI\fontawesome-webfont.ttf" />
   </ItemGroup>
 </Project>

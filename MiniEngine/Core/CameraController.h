@@ -37,6 +37,7 @@ public:
 
 protected:
     Camera& m_TargetCamera;
+    bool controlling;
 
 private:
     CameraController& operator=( const CameraController& ) {return *this;}

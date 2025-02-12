@@ -11,6 +11,8 @@
 
 #define NOMINMAX
 
+#include <UI/Profiler.h>
+
 #include "d3d12.h"
 #include "d3d12video.h"
 #include "dxgi1_3.h"
@@ -935,6 +937,8 @@ namespace Graphics
 
 void D3D12RaytracingMiniEngineSample::Update( float deltaT )
 {
+    PROFILE_FRAME();
+
     ScopedTimer _prof(L"Update State");
 
     if (GameInput::IsFirstPressed(GameInput::kLShoulder))
@@ -1054,6 +1058,10 @@ void D3D12RaytracingMiniEngineSample::RenderScene(void)
 
     Raytrace(gfxContext);
     gfxContext.Finish();
+
+    ID3D12CommandList* cmdList = gfxContext.GetCommandList();
+    Span<ID3D12CommandList*> cmdlists((ID3D12CommandList**)&cmdList, 1);
+    PROFILE_EXECUTE_COMMANDLISTS(Graphics::g_CommandManager.GetCommandQueue(), cmdlists);
 }
 
 //

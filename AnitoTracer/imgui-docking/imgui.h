@@ -301,6 +301,12 @@ struct ImVec2
     float                                   x, y;
     constexpr ImVec2()                      : x(0.0f), y(0.0f) { }
     constexpr ImVec2(float _x, float _y)    : x(_x), y(_y) { }
+    ImVec2 operator+ (ImVec2 other) { return ImVec2(x+other.x, y+other.y); }
+    //ImVec2 operator+= (ImVec2 other) { return ImVec2(x+other.x, y+other.y); }
+    ImVec2 operator- (ImVec2 other) { return ImVec2(x-other.x, y-other.y); }
+    ImVec2 operator* (ImVec2 other) { return ImVec2(x*other.x, y*other.y); }
+    ImVec2 operator* (float other) { return ImVec2(x*other, y*other); }
+    ImVec2 operator/ (float other) { return ImVec2(x/other, y/other); }
     float& operator[] (size_t idx)          { IM_ASSERT(idx == 0 || idx == 1); return ((float*)(void*)(char*)this)[idx]; } // We very rarely use this [] operator, so the assert overhead is fine.
     float  operator[] (size_t idx) const    { IM_ASSERT(idx == 0 || idx == 1); return ((const float*)(const void*)(const char*)this)[idx]; }
 #ifdef IM_VEC2_CLASS_EXTRA
@@ -314,6 +320,7 @@ struct ImVec4
     float                                                     x, y, z, w;
     constexpr ImVec4()                                        : x(0.0f), y(0.0f), z(0.0f), w(0.0f) { }
     constexpr ImVec4(float _x, float _y, float _z, float _w)  : x(_x), y(_y), z(_z), w(_w) { }
+    ImVec4 operator*(ImVec4 other) { return ImVec4(x * other.x, y * other.y, z * other.z, w * other.w); }
 #ifdef IM_VEC4_CLASS_EXTRA
     IM_VEC4_CLASS_EXTRA     // Define additional constructors and implicit cast operators in imconfig.h to convert back and forth between your math types and ImVec4.
 #endif
@@ -2889,6 +2896,7 @@ struct ImColor
     constexpr ImColor(const ImVec4& col)                            : Value(col) {}
     constexpr ImColor(int r, int g, int b, int a = 255)             : Value((float)r * (1.0f / 255.0f), (float)g * (1.0f / 255.0f), (float)b * (1.0f / 255.0f), (float)a* (1.0f / 255.0f)) {}
     constexpr ImColor(ImU32 rgba)                                   : Value((float)((rgba >> IM_COL32_R_SHIFT) & 0xFF) * (1.0f / 255.0f), (float)((rgba >> IM_COL32_G_SHIFT) & 0xFF) * (1.0f / 255.0f), (float)((rgba >> IM_COL32_B_SHIFT) & 0xFF) * (1.0f / 255.0f), (float)((rgba >> IM_COL32_A_SHIFT) & 0xFF) * (1.0f / 255.0f)) {}
+    ImColor operator*(ImVec4 other) { return ImColor(Value.x*other.x, Value.y*other.y, Value.z*other.z, Value.w*other.w); }
     inline operator ImU32() const                                   { return ImGui::ColorConvertFloat4ToU32(Value); }
     inline operator ImVec4() const                                  { return Value; }
 

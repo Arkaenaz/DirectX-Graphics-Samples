@@ -94,7 +94,9 @@
     <ClCompile Include="Source\UI\HierarchyScreen.cpp" />
     <ClCompile Include="Source\UI\InspectorScreen.cpp" />
     <ClCompile Include="Source\UI\MenuScreen.cpp" />
+    <ClCompile Include="Source\UI\Profiler.cpp" />
     <ClCompile Include="Source\UI\ProfilerScreen.cpp" />
+    <ClCompile Include="Source\UI\ProfilerWindow.cpp" />
     <ClCompile Include="Source\UI\SceneToolsScreen.cpp" />
     <ClCompile Include="Source\UI\UIManager.cpp" />
     <ClCompile Include="Source\UI\UIScreen.cpp" />
@@ -241,6 +243,24 @@
     <ClInclude Include="imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="imgui-docking\imstb_textedit.h" />
     <ClInclude Include="imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="Libs\AccelerationStructures.h" />
+    <ClInclude Include="Libs\D3D12GraphicsContext.h" />
+    <ClInclude Include="Libs\GraphicsPipeline.h" />
+    <ClInclude Include="Libs\InterfacePointers.h" />
+    <ClInclude Include="Libs\RTPipeline.h" />
+    <ClInclude Include="Libs\Structs\AccelerationStructureBuffers.h" />
+    <ClInclude Include="Libs\Structs\DxilLibrary.h" />
+    <ClInclude Include="Libs\Structs\ExportAssociation.h" />
+    <ClInclude Include="Libs\Structs\FrameObject.h" />
+    <ClInclude Include="Libs\Structs\GlobalRootSignature.h" />
+    <ClInclude Include="Libs\Structs\HeapData.h" />
+    <ClInclude Include="Libs\Structs\HitProgram.h" />
+    <ClInclude Include="Libs\Structs\LocalRootSignature.h" />
+    <ClInclude Include="Libs\Structs\PipelineConfig.h" />
+    <ClInclude Include="Libs\Structs\PrimitiveCB.h" />
+    <ClInclude Include="Libs\Structs\SceneCB.h" />
+    <ClInclude Include="Libs\Structs\ShaderConfig.h" />
+    <ClInclude Include="Libs\Structs\VertexPositionNormalTangentTexture.h" />
     <ClInclude Include="Source\DXSampleHelper.h" />
     <ClInclude Include="Source\EngineState.h" />
     <ClInclude Include="Source\ModelViewerRayTracing.h" />
@@ -249,9 +269,11 @@
     <ClInclude Include="Source\UI\ColorPickerScreen.h" />
     <ClInclude Include="Source\UI\CreditsScreen.h" />
     <ClInclude Include="Source\UI\HierarchyScreen.h" />
+    <ClInclude Include="Source\UI\IconsFontAwesome4.h" />
     <ClInclude Include="Source\UI\ImGuiInclude.h" />
     <ClInclude Include="Source\UI\InspectorScreen.h" />
     <ClInclude Include="Source\UI\MenuScreen.h" />
+    <ClInclude Include="Source\UI\Profiler.h" />
     <ClInclude Include="Source\UI\ProfilerScreen.h" />
     <ClInclude Include="Source\UI\SceneToolsScreen.h" />
     <ClInclude Include="Source\UI\UIInclude.h" />
@@ -269,6 +291,9 @@
   <ItemGroup>
     <Natvis Include="imgui-docking\imgui.natvis" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Source\UI\fontawesome-webfont.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemDefinitionGroup>
     <Link>
@@ -283,6 +308,15 @@
     </FxCompile>
     <ClCompile>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">stdcpp20</LanguageStandard>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ImportGroup Label="ExtensionTargets">

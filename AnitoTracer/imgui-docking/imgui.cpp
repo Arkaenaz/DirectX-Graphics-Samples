@@ -5178,14 +5178,14 @@ void ImGui::UpdateMouseMovingWindowEndFrame()
 // Need to keep in sync with SetWindowPos()
 static void TranslateWindow(ImGuiWindow* window, const ImVec2& delta)
 {
-    window->Pos += delta;
+    window->Pos = window->Pos + delta;
     window->ClipRect.Translate(delta);
     window->OuterRectClipped.Translate(delta);
     window->InnerRect.Translate(delta);
-    window->DC.CursorPos += delta;
-    window->DC.CursorStartPos += delta;
-    window->DC.CursorMaxPos += delta;
-    window->DC.IdealMaxPos += delta;
+    window->DC.CursorPos = window->DC.CursorPos + delta;
+    window->DC.CursorStartPos = window->DC.CursorStartPos + delta;
+    window->DC.CursorMaxPos = window->DC.CursorMaxPos + delta;
+    window->DC.IdealMaxPos = window->DC.IdealMaxPos + delta;
 }
 
 static void ScaleWindow(ImGuiWindow* window, float scale)
