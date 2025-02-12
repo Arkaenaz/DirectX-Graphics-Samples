@@ -88,6 +88,7 @@
     <ClCompile Include="imgui-docking\imgui_widgets.cpp" />
     <ClCompile Include="Source\EngineState.cpp" />
     <ClCompile Include="Source\ModelViewer.cpp" />
+    <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\UI\ColorPickerScreen.cpp" />
     <ClCompile Include="Source\UI\CreditsScreen.cpp" />
     <ClCompile Include="Source\UI\HierarchyScreen.cpp" />
@@ -226,6 +227,9 @@
       <AdditionalOptions> -HV 2017 -Zpr </AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)'=='Debug'">-Zi -Qembed_debug %(AdditionalOptions)</AdditionalOptions>
     </FxCompile>
+    <FxCompile Include="Source\shaders.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui-docking\imconfig.h" />
@@ -240,6 +244,7 @@
     <ClInclude Include="Source\DXSampleHelper.h" />
     <ClInclude Include="Source\EngineState.h" />
     <ClInclude Include="Source\ModelViewerRayTracing.h" />
+    <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\RayTracingHlslCompat.h" />
     <ClInclude Include="Source\UI\ColorPickerScreen.h" />
     <ClInclude Include="Source\UI\CreditsScreen.h" />
@@ -276,6 +281,9 @@
     <FxCompile>
       <EnableDebuggingInformation Condition="'$(Configuration)'!='Release'">false</EnableDebuggingInformation>
     </FxCompile>
+    <ClCompile>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Packages\WinPixEventRuntime.1.0.240308001\build\WinPixEventRuntime.targets" Condition="Exists('..\Packages\WinPixEventRuntime.1.0.240308001\build\WinPixEventRuntime.targets')" />

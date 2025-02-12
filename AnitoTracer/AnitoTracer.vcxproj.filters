@@ -13,12 +13,6 @@
     <FxCompile Include="RayGenerationShaderLib.hlsl" />
     <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
     <FxCompile Include="RayGenerationShadowsLib.hlsl" />
-    <FxCompile Include="hitShaderLib.hlsl" />
-    <FxCompile Include="missShaderLib.hlsl" />
-    <FxCompile Include="missShadowsLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderLib.hlsl" />
-    <FxCompile Include="RayGenerationShaderSSRLib.hlsl" />
-    <FxCompile Include="RayGenerationShadowsLib.hlsl" />
     <FxCompile Include="*Lib.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
@@ -212,6 +206,9 @@
     <FxCompile Include="Source\RayGenerationShaderLib.hlsl" />
     <FxCompile Include="Source\RayGenerationShaderSSRLib.hlsl" />
     <FxCompile Include="Source\RayGenerationShadowsLib.hlsl" />
+    <FxCompile Include="Source\shaders.hlsl">
+      <Filter>Primitive</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ModelViewer.cpp" />
@@ -233,6 +230,9 @@
     <ClCompile Include="imgui-docking\imgui_stdlib.cpp" />
     <ClCompile Include="imgui-docking\imgui_tables.cpp" />
     <ClCompile Include="imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="Source\Primitive.cpp">
+      <Filter>Primitive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DXSampleHelper.h" />
@@ -259,6 +259,9 @@
     <ClInclude Include="imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="imgui-docking\imstb_textedit.h" />
     <ClInclude Include="imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="Source\Primitive.h">
+      <Filter>Primitive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\Models\background.DDS">
@@ -449,6 +452,9 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{8be3895e-9f38-4b8d-bf48-b94d69970e47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primitive">
+      <UniqueIdentifier>{38b0d3ab-cbc8-4e48-a302-e3a64ae89957}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
