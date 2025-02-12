@@ -11,7 +11,7 @@ void CreditsScreen::drawUI()
 	// Create a window called "My First Tool", with a menu bar.
 	ImGui::Begin("Credits", &isActive);
 
-	this->imageCentered(L"Assets\\Textures\\Logo.jpg", 0.2f);
+	//this->imageCentered(L"Assets/Textures/Logo.jpg", 0.2f);
 
 	ImGui::Text("Scene Editor v0.01");
 	ImGui::Text("Developed by: Kate Nicole Young");

@@ -425,6 +425,9 @@ namespace EngineProfiling
     BoolVar DrawProfiler("Display Profiler", false);
     //BoolVar DrawPerfGraph("Display Performance Graph", false);
     const bool DrawPerfGraph = false;
+
+    float cpuTime = NestedTimingTree::GetTotalCpuTime();
+    float gpuTime = NestedTimingTree::GetTotalGpuTime();
     
     void Update( void )
     {
@@ -434,6 +437,9 @@ namespace EngineProfiling
             Paused = !Paused;
         }
         NestedTimingTree::UpdateTimes();
+
+        cpuTime = NestedTimingTree::GetTotalCpuTime();
+        gpuTime = NestedTimingTree::GetTotalGpuTime();
     }
 
     void BeginBlock(const wstring& name, CommandContext* Context)

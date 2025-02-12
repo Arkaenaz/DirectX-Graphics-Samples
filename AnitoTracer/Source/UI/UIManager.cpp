@@ -38,8 +38,10 @@ UIManager::UIManager()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	//io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
+	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 	// Setup Dear ImGui style
 	sharedInstance->setUIStyle();
@@ -97,7 +99,10 @@ UIManager::UIManager()
 	this->table[names.SCENE_TOOLS_SCREEN] = stScreen;
 	this->list.push_back(stScreen);
 
+	//ViewportManager::getInstance()->createViewport();
+	ShowCursor(TRUE);
 }
+
 UIManager::~UIManager()
 {
 	// Cleanup
@@ -119,14 +124,19 @@ void UIManager::draw(GraphicsContext& CmdContext)
 	this->drawDockspace();
 
 	ImGui::ShowDemoWindow();
-	/*for (UIScreen* screen : list) {
+	for (UIScreen* screen : list) {
 		if (screen->getActive())
 			screen->drawUI();
-	}*/
+	}
 	
 	ImGui::Render();
 	CmdContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, Renderer::s_TextureHeap.GetHeapPointer());
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), CmdContext.GetCommandList());
+
+	ImGuiIO& io = ImGui::GetIO();
+	//DEBUGPRINT("Mouse Pos: (%f, %f)", io.MousePos.x, io.MousePos.y);
+	if (io.MouseDown[0])
+		DEBUGPRINT("Mouse Down: %d", io.MouseDown[0]);
 }
 
 void UIManager::drawDockspace()

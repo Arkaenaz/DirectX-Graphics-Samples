@@ -26,9 +26,8 @@ bool UIScreen::buttonCentered(std::string text) {
 void UIScreen::imageCentered(const wchar_t* path, float sizeMult)
 {
 	// Get Texture
-	std::wstring filepath = L"Textures/UI/Test.dds";
+	std::wstring filepath = L"Assets/Textures/Logo.jpg";
 	TextureRef texture = TextureManager::LoadDDSFromFile(filepath, Graphics::kWhiteOpaque2D, true);
-	//TexturePtr texture = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(path);
 	
 	// Calculate left padding
 	ImVec2 imageSize = ImVec2(texture->GetWidth() * sizeMult, texture->GetHeight() * sizeMult);
