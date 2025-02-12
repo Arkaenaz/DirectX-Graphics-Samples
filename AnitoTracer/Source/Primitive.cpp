@@ -63,6 +63,8 @@ void Primitive::createCube()
         Vertex({ XMFLOAT3(+0.5f + 0.5f, -0.5f, +0.5f), XMFLOAT4(Colors::Magenta) })
     };
 
+    vertexCount = 8;
+
     std::array<std::uint16_t, 36> indices =
     {
         // front face
@@ -89,6 +91,8 @@ void Primitive::createCube()
         4, 0, 3,
         4, 3, 7
     };
+
+    indexCount = 36;
 
     vertexBuffer.Create(L"vertex buff", vertices.size(), sizeof(Vertex), vertices.data());
     indexBuffer.Create(L"index buff", indices.size(), sizeof(std::uint16_t), indices.data());
@@ -291,7 +295,7 @@ void Primitive::createCapsule()
     this->name = "Capsule";
     std::array<Vertex, 8> vertices =
     {
-        Vertex({ XMFLOAT3(-0.5f - 0.5f, -0.5f, -0.0f), XMFLOAT4(Colors::White) }),
+        Vertex({ XMFLOAT3(-5.0f - 0.5f, -0.5f, -0.0f), XMFLOAT4(Colors::White) }),
         Vertex({ XMFLOAT3(-0.5f - 0.5f, +0.5f, -0.0f), XMFLOAT4(Colors::Black) }),
         Vertex({ XMFLOAT3(+0.5f - 0.5f, +0.5f, -0.0f), XMFLOAT4(Colors::Red) }),
         Vertex({ XMFLOAT3(+0.5f - 0.5f, -0.5f, -0.0f), XMFLOAT4(Colors::Green) }),

@@ -105,58 +105,58 @@ void DirectXUtil::Primitive::CreateShapeResources(SampleFramework::ID3D12Device5
 	createdPrimitive = new ShapeResources();
 
 
-	// Ensure the contents are reset
-	memset(createdPrimitive, 0, sizeof(ShapeResources));
+	//// Ensure the contents are reset
+	//memset(createdPrimitive, 0, sizeof(ShapeResources));
 
-	//Vertex
-	createdPrimitive->vertexCount = static_cast<unsigned int>(shapeInfo.vertexData.size());
-	createdPrimitive->vertexBuffer = DirectXUtil::AccelerationStructures::createBuffer(
-		pDevice,
-		static_cast<unsigned int>(sizeof(Structs::VertexPositionNormalTangentTexture) * shapeInfo.vertexData.size()),
-		D3D12_RESOURCE_FLAG_NONE,
-		D3D12_RESOURCE_STATE_GENERIC_READ,
-		AccelerationStructures::kUploadHeapProps
-	);
-	uint8_t* vBuffData;
-	createdPrimitive->vertexBuffer->Map(0, nullptr, reinterpret_cast<void**>(&vBuffData));
-	memcpy(vBuffData, shapeInfo.vertexData.data(),
-		static_cast<unsigned int>(sizeof(Structs::VertexPositionNormalTangentTexture) * shapeInfo.vertexData.size()));
-	createdPrimitive->vertexBuffer->Unmap(0, nullptr);
+	////Vertex
+	//createdPrimitive->vertexCount = static_cast<unsigned int>(shapeInfo.vertexData.size());
+	//createdPrimitive->vertexBuffer = DirectXUtil::AccelerationStructures::createBuffer(
+	//	pDevice,
+	//	static_cast<unsigned int>(sizeof(Structs::VertexPositionNormalTangentTexture) * shapeInfo.vertexData.size()),
+	//	D3D12_RESOURCE_FLAG_NONE,
+	//	D3D12_RESOURCE_STATE_GENERIC_READ,
+	//	AccelerationStructures::kUploadHeapProps
+	//);
+	//uint8_t* vBuffData;
+	//createdPrimitive->vertexBuffer->Map(0, nullptr, reinterpret_cast<void**>(&vBuffData));
+	//memcpy(vBuffData, shapeInfo.vertexData.data(),
+	//	static_cast<unsigned int>(sizeof(Structs::VertexPositionNormalTangentTexture) * shapeInfo.vertexData.size()));
+	//createdPrimitive->vertexBuffer->Unmap(0, nullptr);
 
-	// other vertex buffer
-	createdPrimitive->otherVertexCount = static_cast<unsigned int>(shapeInfo.otherVertexData.size());
+	//// other vertex buffer
+	//createdPrimitive->otherVertexCount = static_cast<unsigned int>(shapeInfo.otherVertexData.size());
 
-	if (shapeInfo.otherVertexData.size() > 0)
-	{
-		createdPrimitive->otherVertexBuffer = DirectXUtil::AccelerationStructures::createBuffer(
-			pDevice,
-			static_cast<unsigned int>(sizeof(Structs::VertexPositionColor) * shapeInfo.otherVertexData.size()),
-			D3D12_RESOURCE_FLAG_NONE,
-			D3D12_RESOURCE_STATE_GENERIC_READ,
-			AccelerationStructures::kUploadHeapProps
-		);
+	//if (shapeInfo.otherVertexData.size() > 0)
+	//{
+	//	createdPrimitive->otherVertexBuffer = DirectXUtil::AccelerationStructures::createBuffer(
+	//		pDevice,
+	//		static_cast<unsigned int>(sizeof(Structs::VertexPositionColor) * shapeInfo.otherVertexData.size()),
+	//		D3D12_RESOURCE_FLAG_NONE,
+	//		D3D12_RESOURCE_STATE_GENERIC_READ,
+	//		AccelerationStructures::kUploadHeapProps
+	//	);
 
-		uint8_t* ovBuffData;
-		createdPrimitive->otherVertexBuffer->Map(0, nullptr, reinterpret_cast<void**>(&ovBuffData));
-		memcpy(ovBuffData, shapeInfo.otherVertexData.data(),
-			static_cast<unsigned int>(sizeof(Structs::VertexPositionColor) * shapeInfo.otherVertexData.size()));
-		createdPrimitive->otherVertexBuffer->Unmap(0, nullptr);
-	}
+	//	uint8_t* ovBuffData;
+	//	createdPrimitive->otherVertexBuffer->Map(0, nullptr, reinterpret_cast<void**>(&ovBuffData));
+	//	memcpy(ovBuffData, shapeInfo.otherVertexData.data(),
+	//		static_cast<unsigned int>(sizeof(Structs::VertexPositionColor) * shapeInfo.otherVertexData.size()));
+	//	createdPrimitive->otherVertexBuffer->Unmap(0, nullptr);
+	//}
 
-	//Index
-	createdPrimitive->indexCount = static_cast<unsigned int>(shapeInfo.indexData.size());
-	createdPrimitive->indexBuffer = DirectXUtil::AccelerationStructures::createBuffer(
-		pDevice,
-		static_cast<unsigned int>(sizeof(unsigned short) * shapeInfo.indexData.size()),
-		D3D12_RESOURCE_FLAG_NONE,
-		D3D12_RESOURCE_STATE_GENERIC_READ,
-		AccelerationStructures::kUploadHeapProps
-	);
-	uint8_t* iBuffData;
-	createdPrimitive->indexBuffer->Map(0, nullptr, reinterpret_cast<void**>(&iBuffData));
-	memcpy(iBuffData, shapeInfo.indexData.data(),
-		static_cast<unsigned int>(sizeof(unsigned short) * shapeInfo.indexData.size()));
-	createdPrimitive->indexBuffer->Unmap(0, nullptr);
+	////Index
+	//createdPrimitive->indexCount = static_cast<unsigned int>(shapeInfo.indexData.size());
+	//createdPrimitive->indexBuffer = DirectXUtil::AccelerationStructures::createBuffer(
+	//	pDevice,
+	//	static_cast<unsigned int>(sizeof(unsigned short) * shapeInfo.indexData.size()),
+	//	D3D12_RESOURCE_FLAG_NONE,
+	//	D3D12_RESOURCE_STATE_GENERIC_READ,
+	//	AccelerationStructures::kUploadHeapProps
+	//);
+	//uint8_t* iBuffData;
+	//createdPrimitive->indexBuffer->Map(0, nullptr, reinterpret_cast<void**>(&iBuffData));
+	//memcpy(iBuffData, shapeInfo.indexData.data(),
+	//	static_cast<unsigned int>(sizeof(unsigned short) * shapeInfo.indexData.size()));
+	//createdPrimitive->indexBuffer->Unmap(0, nullptr);
 
 }
 

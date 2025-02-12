@@ -17,17 +17,6 @@ public:
 	enum ObjectType { CUBE, SPHERE, PLANE, CYLINDER, CAPSULE };
 
 protected:
-	GraphicsPSO graphicsPSO;
-	RootSignature* rootSignature;
-
-	StructuredBuffer vertexBuffer;
-	ByteAddressBuffer indexBuffer;
-
-	ID3D10Blob* vertexShader;
-	ID3D10Blob* pixelShader;
-
-	ObjectType type;
-	std::string name;
 
 	bool rendered = false;
 
@@ -44,5 +33,20 @@ public:
 
 	virtual void update(float deltaTime, RECT viewport);
 	virtual void draw(GraphicsContext& context, Matrix4 viewMat);
+
+	int vertexCount;
+	int indexCount;
+
+	GraphicsPSO graphicsPSO;
+	RootSignature* rootSignature;
+
+	StructuredBuffer vertexBuffer;
+	ByteAddressBuffer indexBuffer;
+
+	ID3D10Blob* vertexShader;
+	ID3D10Blob* pixelShader;
+
+	ObjectType type;
+	std::string name;
 };
 
